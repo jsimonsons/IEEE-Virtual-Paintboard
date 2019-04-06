@@ -53,10 +53,14 @@
 void PinMuxConfig(void)
 {
 
-
     //
     // Set unused pins to PIN_MODE_0 with the exception of JTAG pins 16,17,19,20
     //
+	
+	// I2C Begin
+	PinModeSet(PIN_01, PIN_MODE_0);
+	//PinModeSet(PIN_02, PIN_MODE_0);
+	// I2C End
     PinModeSet(PIN_03, PIN_MODE_0);
     PinModeSet(PIN_04, PIN_MODE_0);
     PinModeSet(PIN_05, PIN_MODE_0);
