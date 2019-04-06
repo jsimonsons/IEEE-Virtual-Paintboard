@@ -25,6 +25,7 @@
 #include "rom_map.h"
 #include "interrupt.h"
 #include "prcm.h"
+#include "timer.h"
 #include "utils.h"
 #include "uart.h"
 
