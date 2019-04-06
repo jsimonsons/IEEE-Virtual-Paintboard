@@ -78,11 +78,56 @@ void PinMuxConfig(void)
     PinModeSet(PIN_63, PIN_MODE_0);
     PinModeSet(PIN_64, PIN_MODE_0);
     
-    //
+        //
     // Enable Peripheral Clocks 
     //
+    PRCMPeripheralClkEnable(PRCM_GPIOA0, PRCM_RUN_MODE_CLK);
+	PRCMPeripheralClkEnable(PRCM_GPIOA1, PRCM_RUN_MODE_CLK);
+    PRCMPeripheralClkEnable(PRCM_GPIOA3, PRCM_RUN_MODE_CLK);
+    PRCMPeripheralClkEnable(PRCM_GSPI, PRCM_RUN_MODE_CLK);
     PRCMPeripheralClkEnable(PRCM_I2CA0, PRCM_RUN_MODE_CLK);
     PRCMPeripheralClkEnable(PRCM_UARTA0, PRCM_RUN_MODE_CLK);
+
+    //
+    // Configure PIN_02 for GPIOOutput
+    // Green LED
+    PinTypeGPIO(PIN_02, PIN_MODE_0, false);
+    GPIODirModeSet(GPIOA1_BASE, 0x8, GPIO_DIR_MODE_OUT);
+
+	//
+    // Configure PIN_63 for GPIO Input
+    // IR Sensor IN
+    PinTypeGPIO(PIN_63, PIN_MODE_0, false);
+    GPIODirModeSet(GPIOA1_BASE, 0x1, GPIO_DIR_MODE_IN);
+	
+    //
+    // Configure PIN_61 for GPIO Output
+    // OLED: DC
+    PinTypeGPIO(PIN_61, PIN_MODE_0, false);
+    GPIODirModeSet(GPIOA0_BASE, 0x40, GPIO_DIR_MODE_OUT);
+
+    //
+    // Configure PIN_62 for GPIO Output
+    // OLED: OLEDCS (OC)
+    PinTypeGPIO(PIN_62, PIN_MODE_0, false);
+    GPIODirModeSet(GPIOA0_BASE, 0x80, GPIO_DIR_MODE_OUT);
+
+    //
+    // Configure PIN_18 for GPIO Output
+    // OLED: RESET (R)
+    PinTypeGPIO(PIN_18, PIN_MODE_0, false);
+    GPIODirModeSet(GPIOA3_BASE, 0x10, GPIO_DIR_MODE_OUT);
+
+    //
+    // Configure PIN_05 for SPI0 GSPI_CLK
+    // OLED: SCK (CL)
+    PinTypeSPI(PIN_05, PIN_MODE_7);
+
+    //
+    // Configure PIN_07 for SPI0 GSPI_MOSI
+    // OLED: MOSI (SI)
+    PinTypeSPI(PIN_07, PIN_MODE_7);
+
 
     //
     // Configure PIN_01 for I2C0 I2C_SCL
