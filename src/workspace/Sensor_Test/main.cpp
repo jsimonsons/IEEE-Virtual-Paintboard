@@ -125,6 +125,34 @@ static void IRIntHandler();
 void TimerIntHandler();
 static void BoardInit();
 
+
+//*****************************************************************************
+//                      LOCAL SHARED SENSOR FUNCTIONS
+//*****************************************************************************
+static void BoardInit(void)
+{
+/* In case of TI-RTOS vector table is initialize by OS itself */
+#ifndef USE_TIRTOS
+  //
+  // Set vector table base
+  //
+#if defined(ccs)
+    MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
+#endif
+#if defined(ewarm)
+    MAP_IntVTableBaseSet((unsigned long)&__vector_table);
+#endif
+#endif
+    //
+    // Enable Processor
+    //
+    MAP_IntMasterEnable();
+    MAP_IntEnable(FAULT_SYSTICK);
+
+    PRCMCC3200MCUInit();
+}
+
+
 //*****************************************************************************
 //                      LOCAL IR SENSOR FUNCTION DEFINITIONS
 //*****************************************************************************
@@ -198,29 +226,7 @@ void TimerIntHandler(void)
 //!
 //! \return None
 //
-//*****************************************************************************
-static void BoardInit(void)
-{
-/* In case of TI-RTOS vector table is initialize by OS itself */
-#ifndef USE_TIRTOS
-  //
-  // Set vector table base
-  //
-#if defined(ccs)
-    MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-#endif
-#if defined(ewarm)
-    MAP_IntVTableBaseSet((unsigned long)&__vector_table);
-#endif
-#endif
-    //
-    // Enable Processor
-    //
-    MAP_IntMasterEnable();
-    MAP_IntEnable(FAULT_SYSTICK);
 
-    PRCMCC3200MCUInit();
-}
 
 //*****************************************************************************
 //
@@ -248,28 +254,6 @@ static void BoardInit(void)
 //! \return None
 //
 //*****************************************************************************
-static void BoardInit(void)
-{
-/* In case of TI-RTOS vector table is initialize by OS itself */
-#ifndef USE_TIRTOS
-    //
-    // Set vector table base
-    //
-#if defined(ccs)
-    MAP_IntVTableBaseSet((unsigned long)&g_pfnVectors[0]);
-#endif
-#if defined(ewarm)
-    MAP_IntVTableBaseSet((unsigned long)&__vector_table);
-#endif
-#endif
-    //
-    // Enable Processor
-    //
-    MAP_IntMasterEnable();
-    MAP_IntEnable(FAULT_SYSTICK);
-
-    PRCMCC3200MCUInit();
-}
 
 //*****************************************************************************
 //
