@@ -48,6 +48,8 @@
 #include "pin.h"
 #include "gpio.h"
 #include "prcm.h"
+#include "rom.h"
+#include "rom_map.h"
 
 //*****************************************************************************
 void PinMuxConfig(void)
